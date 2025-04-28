@@ -54,7 +54,8 @@ class FindView extends GetView<FindController> {
                   itemBuilder: (context, index) {
                     return Shimmer.fromColors(
                       baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
+                      highlightColor: Colors.grey[100]!,                  
+                      period: const Duration(milliseconds: 1500),
                       child: ShimmerWidgetView(),
                     );
                   },

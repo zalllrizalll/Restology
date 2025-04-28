@@ -16,7 +16,9 @@ class HomeView extends GetView<HomeController> {
         future: controller.fetchRestaurants(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(
+              color: CustomColors.primary,
+            ));
           } else if (snapshot.hasError) {
             return Center(
               child: Text(

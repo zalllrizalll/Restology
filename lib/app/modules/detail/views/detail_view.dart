@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -17,7 +18,9 @@ class DetailView extends GetView<DetailController> {
           future: controller.fetchDetailRestaurant(id),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(color: CustomColors.primary),
+              );
             } else if (snapshot.hasError) {
               return Center(
                 child: Text(
@@ -104,10 +107,50 @@ class DetailView extends GetView<DetailController> {
                         ),
                         Divider(color: CustomColors.greyColor, thickness: 1),
                         const SizedBox(height: 8),
-                        Text(
-                          snapshot.data!.description ?? '',
-                          style: const TextStyle(fontSize: 14),
-                          textAlign: TextAlign.justify,
+                        ValueListenableBuilder<bool>(
+                          valueListenable: controller.isExpanded,
+                          builder: (context, expanded, _) {
+                            final description =
+                                snapshot.data!.description ?? '';
+
+                            return RichText(
+                              textAlign: TextAlign.justify,
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: CustomColors.greyColor,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        expanded
+                                            ? description
+                                            : (description.length > 200
+                                                ? description.substring(0, 200)
+                                                : description),
+                                  ),
+                                  if (description.length > 200)
+                                    TextSpan(
+                                      text:
+                                          expanded
+                                              ? '...Show less'
+                                              : '...Read more',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: CustomColors.primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      recognizer:
+                                          TapGestureRecognizer()
+                                            ..onTap = () {
+                                              controller.isExpanded.value =
+                                                  !expanded;
+                                            },
+                                    ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                         const SizedBox(height: 12),
                         const Text(

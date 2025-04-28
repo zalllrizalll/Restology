@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restology/app/data/models/detail_restaurant_response_model.dart';
 import 'package:restology/app/data/providers/detail_restaurant_response_provider.dart';
@@ -5,6 +6,8 @@ import 'package:restology/app/data/providers/detail_restaurant_response_provider
 class DetailController extends GetxController {
   final DetailRestaurantResponseProvider _detailRestaurantResponseProvider =
       DetailRestaurantResponseProvider();
+
+   final ValueNotifier<bool> isExpanded = ValueNotifier<bool>(false);
 
   Future<Restaurant?> fetchDetailRestaurant(String id) async {
     try {
