@@ -9,14 +9,34 @@ class FindController extends GetxController {
 
   final TextEditingController findController = TextEditingController();
 
-  Future<List<Restaurant>> searchRestaurants(String query) async {
-    try {
-      final response = await _searchRestaurantResponseProvider
-          .getSearchRestaurant(query);
+  RxList<Restaurant> restaurants = <Restaurant>[].obs;
+  RxBool isLoading = false.obs;
+  RxString searchQuery = ''.obs;
 
-      return response?.restaurants ?? [];
+  @override
+  void onInit() {
+    super.onInit();
+
+    debounce(searchQuery, (_) {
+      if (searchQuery.value.isNotEmpty) {
+        searchRestaurants();
+      } else {
+        restaurants.clear();
+      }
+    }, time: const Duration(milliseconds: 500));
+  }
+
+  Future<void> searchRestaurants() async {
+    try {
+      isLoading.value = true;
+      final response = await _searchRestaurantResponseProvider
+          .getSearchRestaurant(findController.text);
+
+      restaurants.value = response?.restaurants ?? [];
     } catch (e) {
       throw Exception(e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 }

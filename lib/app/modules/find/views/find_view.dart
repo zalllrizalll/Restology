@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:restology/app/constant/custom_colors.dart';
+import 'package:restology/app/modules/find/views/shimmer_widget_view.dart';
 import 'package:restology/app/routes/app_pages.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../controllers/find_controller.dart';
 
@@ -30,41 +32,59 @@ class FindView extends GetView<FindController> {
                 hintText: 'Search Restaurant',
               ),
               onChanged: (value) {
-                controller.searchRestaurants(value);
+                controller.searchQuery.value = value;
+              },
+              onSubmitted: (value) {
+                controller.searchQuery.value = value;
               },
             ),
           ),
           Expanded(
-            child: FutureBuilder(
-              future: controller.searchRestaurants(
-                controller.findController.text,
-              ),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text(
-                      'Error: ${snapshot.error}',
-                      style: const TextStyle(color: CustomColors.primary),
-                    ),
-                  );
-                } else if (snapshot.data!.isEmpty) {
-                  return const Center(
-                    child: Text(
-                      'No result found',
-                      style: TextStyle(color: CustomColors.primary),
-                    ),
-                  );
-                } else {
-                  final restaurants = snapshot.data;
+            child: Obx(() {
+              if (controller.searchQuery.value.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'Start typing to search...',
+                    style: TextStyle(color: CustomColors.primary),
+                  ),
+                );
+              } else if (controller.isLoading.isTrue) {
+                return ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: ShimmerWidgetView(),
+                    );
+                  },
+                );
+              } else if (controller.restaurants.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'No restaurants found',
+                    style: TextStyle(color: CustomColors.primary),
+                  ),
+                );
+              } else {
+                return ListView.builder(
+                  itemCount: controller.restaurants.length,
+                  itemBuilder: (context, index) {
+                    final restaurant = controller.restaurants[index];
 
-                  return ListView.builder(
-                    itemCount: restaurants!.length,
-                    itemBuilder: (context, index) {
-                      final restaurant = restaurants[index];
-
-                      return GestureDetector(
+                    return TweenAnimationBuilder(
+                      tween: Tween<Offset>(
+                        begin: const Offset(0, 0.3),
+                        end: Offset.zero,
+                      ),
+                      duration: Duration(milliseconds: 400 + (index * 120)),
+                      builder: (context, offset, child) {
+                        return Transform.translate(
+                          offset: Offset(0, offset.dy * 20),
+                          child: Opacity(opacity: 1 - offset.dy, child: child),
+                        );
+                      },
+                      child: GestureDetector(
                         onTap: () {
                           Get.toNamed(Routes.DETAIL, arguments: restaurant.id);
                         },
@@ -126,12 +146,12 @@ class FindView extends GetView<FindController> {
                             ),
                           ),
                         ),
-                      );
-                    },
-                  );
-                }
-              },
-            ),
+                      ),
+                    );
+                  },
+                );
+              }
+            }),
           ),
         ],
       ),
