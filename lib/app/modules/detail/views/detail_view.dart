@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:restology/app/constant/custom_colors.dart';
+import 'package:restology/app/modules/detail/views/review_view.dart';
 
 import '../controllers/detail_controller.dart';
 
@@ -227,6 +228,41 @@ class DetailView extends GetView<DetailController> {
                             },
                           ),
                         ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Review',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Obx(
+                          () => ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.reviews.length,
+                            itemBuilder: (context, index) {
+                              final review = controller.reviews[index];
+
+                              return Card(
+                                child: ListTile(
+                                  leading: const Icon(
+                                    Icons.person,
+                                    color: CustomColors.primary,
+                                  ),
+                                  title: Text(
+                                    review.name ?? '',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  subtitle: Text(review.review ?? ''),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -235,6 +271,57 @@ class DetailView extends GetView<DetailController> {
             }
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('Tambah Review'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      controller.nameC.clear();
+                      controller.reviewC.clear();
+                      Get.back();
+                    },
+                    child: const Text(
+                      'Batal',
+                      style: TextStyle(color: CustomColors.greyColor),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      controller.addCustomerReview(id);
+                      controller.nameC.clear();
+                      controller.reviewC.clear();
+                      Get.back();
+                    },
+                    child: const Text(
+                      'Submit',
+                      style: TextStyle(color: CustomColors.primary),
+                    ),
+                  ),
+                ],
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ReviewView(controller: controller.nameC, hintText: 'Nama'),
+                    const SizedBox(height: 8),
+                    ReviewView(
+                      controller: controller.reviewC,
+                      hintText: 'Deskripsi Review',
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+        shape: const CircleBorder(),
+        backgroundColor: CustomColors.whiteColor,
+        child: const Icon(Icons.edit, color: CustomColors.primary),
       ),
     );
   }
