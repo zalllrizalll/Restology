@@ -24,11 +24,23 @@ class FindView extends GetView<FindController> {
               controller: controller.findController,
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.search,
+              style: const TextStyle(color: CustomColors.primary),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                prefixIcon: const Icon(Icons.search),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: CustomColors.greyColor),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: CustomColors.primary),
+                ),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: CustomColors.greyColor,
+                ),
                 hintText: 'Search Restaurant',
               ),
               onChanged: (value) {
@@ -54,7 +66,7 @@ class FindView extends GetView<FindController> {
                   itemBuilder: (context, index) {
                     return Shimmer.fromColors(
                       baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,                  
+                      highlightColor: Colors.grey[100]!,
                       period: const Duration(milliseconds: 1500),
                       child: ShimmerWidgetView(),
                     );
