@@ -51,45 +51,62 @@ class HomeView extends GetView<HomeController> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            'https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}',
-                            fit: BoxFit.cover,
+                          child: Hero(
+                            tag: 'img-restaurant-${restaurant.id}',
+                            child: Image.network(
+                              'https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
-                      title: Text(
-                        restaurant.name ?? '',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      title: Hero(
+                        tag: 'name-restaurant-${restaurant.id}',
+                        child: Text(
+                          restaurant.name ?? '',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                       subtitle: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
-                            Icons.location_on,
-                            color: CustomColors.redColor,
+                          Hero(
+                            tag: 'icon-location-${restaurant.id}',
+                            child: const Icon(
+                              Icons.location_on,
+                              color: CustomColors.redColor,
+                            ),
                           ),
                           const SizedBox(width: 4),
-                          Text(
-                            restaurant.city ?? '',
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                      trailing: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.star, color: CustomColors.secondary),
-                          const SizedBox(width: 4),
-                          Text(
-                            restaurant.rating?.toString() ?? '',
-                            style: const TextStyle(
-                              color: CustomColors.primary,
-                              fontSize: 14,
+                          Hero(
+                            tag: 'location-restaurant-${restaurant.id}',
+                            child: Text(
+                              restaurant.city ?? '',
+                              style: const TextStyle(color: Colors.grey),
                             ),
                           ),
                         ],
+                      ),
+                      trailing: Hero(
+                        tag: 'rating-restaurant-${restaurant.id}',
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.star, color: CustomColors.secondary),
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                restaurant.rating?.toString() ?? '',
+                                style: const TextStyle(
+                                  color: CustomColors.primary,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
