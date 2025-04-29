@@ -16,14 +16,25 @@ class HomeView extends GetView<HomeController> {
         future: controller.fetchRestaurants(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator(
-              color: CustomColors.primary,
-            ));
+            return const Center(
+              child: CircularProgressIndicator(color: CustomColors.primary),
+            );
           } else if (snapshot.hasError) {
             return Center(
-              child: Text(
-                'Error: ${snapshot.error}',
-                style: const TextStyle(color: Colors.red),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.wifi_off,
+                    color: CustomColors.primary,
+                    size: 50,
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Something went wrong',
+                    style: TextStyle(color: CustomColors.primary, fontSize: 16),
+                  ),
+                ],
               ),
             );
           } else if (snapshot.data!.isEmpty) {
@@ -94,7 +105,10 @@ class HomeView extends GetView<HomeController> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.star, color: CustomColors.secondary),
+                            const Icon(
+                              Icons.star,
+                              color: CustomColors.secondary,
+                            ),
                             const SizedBox(width: 4),
                             Flexible(
                               child: Text(

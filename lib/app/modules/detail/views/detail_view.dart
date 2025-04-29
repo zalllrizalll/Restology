@@ -14,30 +14,41 @@ class DetailView extends GetView<DetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Detail Restaurant'), centerTitle: true),
-      body: SingleChildScrollView(
-        child: FutureBuilder(
-          future: controller.fetchDetailRestaurant(id),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(color: CustomColors.primary),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: const TextStyle(color: CustomColors.primary),
-                ),
-              );
-            } else if (snapshot.data == null) {
-              return const Center(
-                child: Text(
-                  'No result found',
-                  style: TextStyle(color: CustomColors.primary),
-                ),
-              );
-            } else {
-              return Column(
+      body: FutureBuilder(
+        future: controller.fetchDetailRestaurant(id),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(color: CustomColors.primary),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.wifi_off,
+                    color: CustomColors.primary,
+                    size: 50,
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Something went wrong',
+                    style: TextStyle(color: CustomColors.primary, fontSize: 16),
+                  ),
+                ],
+              ),
+            );
+          } else if (snapshot.data == null) {
+            return const Center(
+              child: Text(
+                'No result found',
+                style: TextStyle(color: CustomColors.primary),
+              ),
+            );
+          } else {
+            return SingleChildScrollView(
+              child: Column(
                 children: [
                   AspectRatio(
                     aspectRatio: 16 / 9,
@@ -282,10 +293,10 @@ class DetailView extends GetView<DetailController> {
                     ),
                   ),
                 ],
-              );
-            }
-          },
-        ),
+              ),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

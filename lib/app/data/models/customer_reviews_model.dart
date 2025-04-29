@@ -3,11 +3,7 @@ class CustomerReviews {
   String? review;
   String? date;
 
-  CustomerReviews({
-    this.name,
-    this.review,
-    this.date,
-  });
+  CustomerReviews({this.name, this.review, this.date});
 
   CustomerReviews.fromJson(Map<String, dynamic> json) {
     name = json['name'];
