@@ -8,6 +8,7 @@ abstract class Routes {
   static const SEARCH = _Paths.SEARCH;
   static const FIND = _Paths.FIND;
   static const BOTTOM_NAVIGATION = _Paths.BOTTOM_NAVIGATION;
+  static const SETTINGS = _Paths.SETTINGS;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const SEARCH = '/search';
   static const FIND = '/find';
   static const BOTTOM_NAVIGATION = '/bottom-navigation';
+  static const SETTINGS = '/settings';
 }
