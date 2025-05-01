@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:restology/app/constant/custom_colors.dart';
+import 'package:restology/app/modules/favourite/views/favourite_view.dart';
 import 'package:restology/app/modules/find/views/find_view.dart';
 import 'package:restology/app/modules/home/views/home_view.dart';
 import 'package:restology/app/modules/settings/views/settings_view.dart';
@@ -11,7 +11,7 @@ import '../controllers/bottom_navigation_controller.dart';
 class BottomNavigationView extends GetView<BottomNavigationController> {
   BottomNavigationView({super.key});
 
-  final List<Widget> pages = [const HomeView(), const FindView(), const SettingsView()];
+  final List<Widget> pages = [const HomeView(), const FindView(), const FavouriteView(), const SettingsView()];
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,6 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
         () => BottomNavigationBar(
           currentIndex: controller.currentIndex.value,
           onTap: controller.changeIndex,
-          backgroundColor: CustomColors.primary,
-          selectedItemColor: CustomColors.whiteColor,
-          unselectedItemColor: CustomColors.greyColor,
           items: [
             const BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -35,6 +32,10 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
             const BottomNavigationBarItem(
               icon: Icon(Icons.search),
               label: 'Search',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Favourite',
             ),
             const BottomNavigationBarItem(
               icon: Icon(Icons.settings),

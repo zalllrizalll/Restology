@@ -14,6 +14,12 @@ class CustomTheme {
         color: Colors.white,
       ),
     ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: CustomColors.primary,
+      unselectedItemColor: CustomColors.greyColor,
+      type: BottomNavigationBarType.shifting,
+      backgroundColor: CustomColors.whiteColor,
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -27,6 +33,12 @@ class CustomTheme {
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: CustomColors.whiteColor,
+      unselectedItemColor: CustomColors.greyColor,
+      type: BottomNavigationBarType.shifting,
+      backgroundColor: CustomColors.blackColor,
     ),
   );
 }

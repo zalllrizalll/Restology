@@ -9,6 +9,7 @@ abstract class Routes {
   static const FIND = _Paths.FIND;
   static const BOTTOM_NAVIGATION = _Paths.BOTTOM_NAVIGATION;
   static const SETTINGS = _Paths.SETTINGS;
+  static const FAVOURITE = _Paths.FAVOURITE;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const FIND = '/find';
   static const BOTTOM_NAVIGATION = '/bottom-navigation';
   static const SETTINGS = '/settings';
+  static const FAVOURITE = '/favourite';
 }
