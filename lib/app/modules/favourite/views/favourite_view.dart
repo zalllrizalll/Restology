@@ -30,8 +30,6 @@ class FavouriteView extends GetView<FavouriteController> {
                   itemBuilder: (context, index) {
                     final restaurant = controller.favouriteRestaurants[index];
 
-                    print('restaurant: ${restaurant.pictureId}');
-
                     return GestureDetector(
                       onTap: () {
                         Get.toNamed(Routes.DETAIL, arguments: restaurant.id);
