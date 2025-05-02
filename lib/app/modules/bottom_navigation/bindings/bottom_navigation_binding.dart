@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:restology/app/modules/favourite/controllers/favourite_controller.dart';
 import 'package:restology/app/modules/find/controllers/find_controller.dart';
 import 'package:restology/app/modules/home/controllers/home_controller.dart';
 
@@ -10,5 +11,6 @@ class BottomNavigationBinding extends Bindings {
     Get.lazyPut<BottomNavigationController>(() => BottomNavigationController());
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<FindController>(() => FindController());
+    Get.lazyPut<FavouriteController>(() => FavouriteController());
   }
 }

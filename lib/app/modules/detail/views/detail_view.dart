@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restology/app/constant/custom_colors.dart';
 import 'package:restology/app/modules/detail/views/review_view.dart';
+import 'package:restology/app/modules/favourite/controllers/favourite_controller.dart';
+import 'package:restology/app/utils/restaurant_mapper.dart';
 
 import '../controllers/detail_controller.dart';
 
@@ -12,6 +14,12 @@ class DetailView extends GetView<DetailController> {
   const DetailView({super.key, required this.id});
   @override
   Widget build(BuildContext context) {
+    final FavouriteController favouriteController =
+        Get.find<FavouriteController>();
+    favouriteController.isFavourite.value = favouriteController.checkFavourite(
+      id,
+    );
+
     return Scaffold(
       appBar: AppBar(title: const Text('Detail Restaurant'), centerTitle: true),
       body: FutureBuilder(
@@ -50,15 +58,45 @@ class DetailView extends GetView<DetailController> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: Hero(
-                      tag: 'img-restaurant-${snapshot.data!.id}',
-                      child: Image.network(
-                        'https://restaurant-api.dicoding.dev/images/medium/${snapshot.data!.pictureId}',
-                        fit: BoxFit.cover,
+                  Stack(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Hero(
+                          tag: 'img-restaurant-${snapshot.data!.id}',
+                          child: Image.network(
+                            'https://restaurant-api.dicoding.dev/images/medium/${snapshot.data!.pictureId}',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      Positioned(
+                        top: 15,
+                        right: 15,
+                        child: CircleAvatar(
+                          backgroundColor: CustomColors.greyColor2,
+                          child: IconButton(
+                            onPressed: () {
+                              if (favouriteController.isFavourite.value) {
+                                favouriteController.removeFavourite(id);
+                              } else {
+                                favouriteController.addFavourite(
+                                  snapshot.data!.toHiveModel(),
+                                );
+                              }
+                            },
+                            icon: Obx(
+                              () => Icon(
+                                favouriteController.isFavourite.value
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: CustomColors.primary,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   Padding(
@@ -346,7 +384,7 @@ class DetailView extends GetView<DetailController> {
           );
         },
         shape: const CircleBorder(),
-        backgroundColor: CustomColors.whiteColor,
+        backgroundColor: CustomColors.greyColor2,
         child: const Icon(Icons.edit, color: CustomColors.primary),
       ),
     );

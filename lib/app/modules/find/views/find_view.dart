@@ -13,7 +13,7 @@ class FindView extends GetView<FindController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Find Restaurant'), centerTitle: true),
+      appBar: AppBar(title: const Text('Search'), centerTitle: true),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

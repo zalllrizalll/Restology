@@ -11,7 +11,12 @@ import '../controllers/bottom_navigation_controller.dart';
 class BottomNavigationView extends GetView<BottomNavigationController> {
   BottomNavigationView({super.key});
 
-  final List<Widget> pages = [const HomeView(), const FindView(), const FavouriteView(), const SettingsView()];
+  final List<Widget> pages = [
+    const HomeView(),
+    const FindView(),
+    const FavouriteView(),
+    const SettingsView(),
+  ];
 
   @override
   Widget build(BuildContext context) {

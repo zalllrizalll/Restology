@@ -11,7 +11,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Daftar Restaurant'), centerTitle: true),
+      appBar: AppBar(title: const Text('Restaurants'), centerTitle: true),
       body: FutureBuilder(
         future: controller.fetchRestaurants(),
         builder: (context, snapshot) {
