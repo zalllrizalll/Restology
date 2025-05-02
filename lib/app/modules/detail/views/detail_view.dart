@@ -62,12 +62,9 @@ class DetailView extends GetView<DetailController> {
                     children: [
                       AspectRatio(
                         aspectRatio: 16 / 9,
-                        child: Hero(
-                          tag: 'img-restaurant-${snapshot.data!.id}',
-                          child: Image.network(
-                            'https://restaurant-api.dicoding.dev/images/medium/${snapshot.data!.pictureId}',
-                            fit: BoxFit.cover,
-                          ),
+                        child: Image.network(
+                          'https://restaurant-api.dicoding.dev/images/medium/${snapshot.data!.pictureId}',
+                          fit: BoxFit.cover,
                         ),
                       ),
                       Positioned(
@@ -113,36 +110,30 @@ class DetailView extends GetView<DetailController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                              child: Hero(
-                                tag: 'name-restaurant-${snapshot.data!.id}',
-                                child: Text(
-                                  snapshot.data!.name ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              child: Text(
+                                snapshot.data!.name ?? '',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            Hero(
-                              tag: 'rating-restaurant-${snapshot.data!.id}',
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: CustomColors.secondary,
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  color: CustomColors.secondary,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  snapshot.data!.rating.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    snapshot.data!.rating.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -150,22 +141,16 @@ class DetailView extends GetView<DetailController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Hero(
-                              tag: 'icon-location-${snapshot.data!.id}',
-                              child: const Icon(
-                                Icons.location_on,
-                                color: CustomColors.redColor,
-                              ),
+                            const Icon(
+                              Icons.location_on,
+                              color: CustomColors.redColor,
                             ),
                             const SizedBox(width: 4),
-                            Hero(
-                              tag: 'location-restaurant-${snapshot.data!.id}',
-                              child: Text(
-                                '${snapshot.data!.address}, ${snapshot.data!.city}',
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                ),
+                            Text(
+                              '${snapshot.data!.address}, ${snapshot.data!.city}',
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
                               ),
                             ),
                           ],
