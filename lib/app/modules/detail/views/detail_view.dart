@@ -356,11 +356,12 @@ class DetailView extends GetView<DetailController> {
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ReviewView(controller: controller.nameC, hintText: 'Nama'),
+                    ReviewView(controller: controller.nameC, hintText: 'Nama', textInputAction: TextInputAction.next,),
                     const SizedBox(height: 8),
                     ReviewView(
                       controller: controller.reviewC,
                       hintText: 'Deskripsi Review',
+                      textInputAction: TextInputAction.done,
                     ),
                   ],
                 ),
