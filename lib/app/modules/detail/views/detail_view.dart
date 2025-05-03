@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:restology/app/constant/custom_colors.dart';
-import 'package:restology/app/modules/detail/views/review_view.dart';
+import 'package:restology/app/components/review_field_widget.dart';
 import 'package:restology/app/modules/favourite/controllers/favourite_controller.dart';
 import 'package:restology/app/utils/restaurant_mapper.dart';
 
@@ -356,9 +356,9 @@ class DetailView extends GetView<DetailController> {
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ReviewView(controller: controller.nameC, hintText: 'Nama', textInputAction: TextInputAction.next,),
+                    ReviewFieldWidget(controller: controller.nameC, hintText: 'Nama', textInputAction: TextInputAction.next,),
                     const SizedBox(height: 8),
-                    ReviewView(
+                    ReviewFieldWidget(
                       controller: controller.reviewC,
                       hintText: 'Deskripsi Review',
                       textInputAction: TextInputAction.done,

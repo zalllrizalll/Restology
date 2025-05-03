@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restology/app/constant/custom_colors.dart';
 
-class ReviewView extends GetView {
+class ReviewFieldWidget extends GetView {
   @override
   final TextEditingController controller;
   final TextInputAction textInputAction;
   final String hintText;
-  const ReviewView({
+  const ReviewFieldWidget({
     super.key,
     required this.controller,
     required this.hintText,
