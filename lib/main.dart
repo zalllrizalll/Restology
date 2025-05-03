@@ -29,10 +29,9 @@ void callbackDispatcher() {
         AndroidNotificationDetails(
           'daily_reminder',
           'Daily Reminder',
-          channelDescription: 'Channer for daily reminder',
+          channelDescription: 'Channel for daily reminder',
           importance: Importance.max,
           priority: Priority.high,
-          showWhen: false,
           playSound: true,
           enableVibration: true,
         );
