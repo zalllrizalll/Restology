@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restology/app/data/models/customer_reviews_model.dart';
-import 'package:restology/app/data/models/detail_restaurant_response_model.dart';
+import 'package:restology/app/data/models/restaurant.dart';
 import 'package:restology/app/data/providers/customer_reviews_provider.dart';
 import 'package:restology/app/data/providers/detail_restaurant_response_provider.dart';
 
