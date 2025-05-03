@@ -4,7 +4,7 @@ import 'package:restology/app/constant/custom_colors.dart';
 import 'package:restology/app/data/models/restaurant.dart';
 import 'package:restology/app/routes/app_pages.dart';
 
-class RestaurantItemWidget extends StatelessWidget {
+class RestaurantItemWidget extends GetView {
   final Restaurant restaurant;
   const RestaurantItemWidget({super.key, required this.restaurant});
 
