@@ -13,26 +13,55 @@ class SettingsView extends GetView<SettingsController> {
       appBar: AppBar(title: const Text('Settings'), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Card(
-          child: ListTile(
-            title: const Text(
-              'Dark Mode',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Obx(
-              () => Text(controller.isDarkMode.value ? 'Enable' : 'Disable'),
-            ),
-            trailing: Obx(
-              () => Switch(
-                value: controller.isDarkMode.value,
-                onChanged: (value) {
-                  controller.changeTheme();
-                },
-                activeColor: CustomColors.primary,
-                inactiveTrackColor: CustomColors.greyColor2,
+        child: ListView(
+          children: [
+            Card(
+              child: ListTile(
+                title: const Text(
+                  'Dark Mode',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Obx(
+                  () => Text(
+                    controller.isDarkMode.value ? 'Enabled' : 'Disabled',
+                  ),
+                ),
+                trailing: Obx(
+                  () => Switch(
+                    value: controller.isDarkMode.value,
+                    onChanged: (_) {
+                      controller.changeTheme();
+                    },
+                    activeColor: CustomColors.primary,
+                    inactiveTrackColor: CustomColors.greyColor2,
+                  ),
+                ),
               ),
             ),
-          ),
+            Card(
+              child: ListTile(
+                title: const Text(
+                  'Daily Reminder',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Obx(
+                  () => Text(
+                    controller.isReminderActive.value ? 'Enabled' : 'Disabled',
+                  ),
+                ),
+                trailing: Obx(
+                  () => Switch(
+                    value: controller.isReminderActive.value,
+                    onChanged: (_) {
+                      controller.changeReminder();
+                    },
+                    activeColor: CustomColors.primary,
+                    inactiveTrackColor: CustomColors.greyColor2,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

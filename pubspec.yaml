@@ -39,6 +39,12 @@ dependencies:
   shared_preferences: ^2.5.3
   path_provider: ^2.1.5
   hive_flutter: ^1.1.0
+  flutter_local_notifications: ^19.1.0
+  workmanager:
+    git:
+      url: https://github.com/fluttercommunity/flutter_workmanager.git
+      path: workmanager
+      ref: main
 
 dev_dependencies:
   flutter_test:
